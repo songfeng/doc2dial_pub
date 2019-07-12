@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <base href="/">
+        <title>Thank you!</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body class="blue-grey darken-3 white-text">
+      <div class="container">
+        <div class="section">
+          {% if task_url_next %}
+           <div>
+            <p> Congratulations! You have successfully submitted your task. </p>
+            <p> We thank you for your participation!</p>
+           </div>
+           <div class="card white">
+             <p>Like our tasks?  Please participate another one! </p>
+             <p> So far you have completed <b class="deep-purple-text">{{n_task}}</b> tasks. Current total reward: <b class="deep-purple-text">${{current_reward}}</b>.
+               Estimated total reward after next task: <b class="deep-purple-text">${{estimated_reward}}</b>.
+             </p>
+             <span class="card yellow lighten-2">
+               <a href="{{task_url_next}}" target="_blank"><b>Click HERE to start</b> </a> </span>
+            </div>
+          {% elif code %}
+             <blockquote>
+               <!-- <p>We have sent the confirmation code to your dashboard based on the Contribution ID you provided.</p> -->
+              Thank you for completing your tasks!
+             <h5 class="white-text"><b>Please copy the code below<br><span class="card lime black-text">{{code}}</span><br> to the main task to get rewarded.</b></h5></blockquote>
+          {% else %}
+              <span class="red-text">
+                <p>We thank you for your participation! </p>
+                <p>Unfortunately, you did not pass our test. You are welcome to read our task description carefully and try again.</p>
+              </span>
+          {% endif %}
+
+          <div class="row">Please provide us some feedback for the task! If you run into any issue with the task, let us know too. Thank you!</div>
+          <form class="col s8" method="POST">
+              {{ form.feedback(class_="materialize-textarea white black-text")}}
+              {{ form.submit(class_="btn teal  btn-primary") }} <h6 class='teal-text'>{{message}}</h6>
+          </form>
+        </div>
+      </div>
+    </body>
+</html>

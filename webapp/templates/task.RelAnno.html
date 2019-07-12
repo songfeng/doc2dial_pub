@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title> 🚩Doc2Dial || RelAnno </title>
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='css/materialize.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+ 
+  <script type=text/javascript>
+    $(function() {
+      $('#save').bind('click', function() { 
+        M.toast({html: 'Your input is saved.'});
+        var dct = {};
+        for (let l of {{label_ids|tojson}}) {
+          label = 'input[name="' + l + '"]:checked';
+          dct[l] = $(label).val();
+        };
+        dct['next_task_idx'] = {{next_task_idx|tojson}};
+        savereq = $.getJSON('/anno', dct, 
+        function(data) {
+          $.ajax({
+              success: function(){
+                window.location.href = "{{ url_for('app.label') }}";
+              }
+          });
+        });
+        return false;
+      });
+    });
+  </script>
+  <script>
+    function next_task() {
+      window.location.href = "{{ url_for('app.label') }}";
+    }
+
+    function end_task() {
+      window.location.href = "{{ url_for('app.end') }}";
+    }
+  </script>
+ 
+</head>
+<body>
+    <div class="section">
+        <div class="container">
+          <div class="bg-header blue-grey darken-3">
+            <div class='white-text center'>
+              <b>{{username}}</b> on {{progress}}.
+              <span> <button class="btn white red-text lighten-1" id="save" href="#" value=""><b>Save & Next</b></button></span>
+              </div>
+          <div>
+          <!-- <p class="center white-text"><i><b class="red-text">NOTE: </b>Please read the following text first, then answer the questions.</i></p> -->
+          <!-- {% if is_debug %}<p>TASK_ID: {{task_data['task_id']}}</p>{% endif %} -->
+          
+          <div class="card-panel">
+              {% for ele in task_data["doc_info"][:1] %}
+              {% if ele in task_data %}
+              <div class="black-text"><b>{{ele}}</b>: <span class="light">{{task_data[ele]}}</span></div>
+              {% endif %}
+              {% endfor %}
+              <br>
+            <!-- {{task_data['task_html']|safe}} -->
+                <h2 sent_id="0" tag_id="5" text_id="1">Create a Special Device Request</h2>
+                <div tag_id="5"><u class="orange-text underline" id="2" sent_id="1" tag_id="5" text_id="2"><b class="black yellow-text"> 1 </b>If your device is broken or not working well,</u><span id="3" sent_id="1" tag_id="5" text_id="3"> contact support and have a representative analyze the device status.</span><u class="orange-text underline" id="4" sent_id="2" tag_id="5" text_id="4"><b class="black yellow-text"> 2 </b>If a replacement is required,</u><span id="5" sent_id="2" tag_id="5" text_id="5">a ticket is opened so you can use it to request a new device from the IT Desk Page.</span></div>
+                <br>
+                <div tag_id="5"><u class="orange-text underline" id="6" sent_id="3" tag_id="5" text_id="6"><b class="black yellow-text"> 3 </b>If your device has been lost or stolen,</u><span id="7" sent_id="3" tag_id="5" text_id="7"> refer to My Device was Lost or Stolen.</span></div><div tag_id="5"><u class="orange-text underline" id="8" sent_id="4" tag_id="5" text_id="8"><b class="black yellow-text"> 4 </b>To request replacement on IT Desk Page,</u><span id="9" sent_id="4" tag_id="5" text_id="9"> you must complete information required in the form and submit the request</span></div>
+                <!-- <br> -->
+                <div tag_id="5"><u class="green-text underline" id="10" sent_id="5" tag_id="5" text_id="10"><b class="black yellow-text"> 5 </b>For broken/lost/stolen devices, IT Desk sends the best device available in inventory or a new one, if the stock quantities allow.</u></div>
+                <br>
+                <div tag_id="5"><u class="green-text underline" id="11" sent_id="6" tag_id="5" text_id="11"><b class="black yellow-text"> 6 </b>Note : You can submit an emergency request for another user if their computer is broken or not functional.</u></div><br>
+          </div>
+          <form method="POST">
+              <ul class="collection white-text">
+            {% for label in task_data['label_ids'][:5] %}
+                <div class="row">
+                ({{loop.index}}) Please label the relation 
+                between <b>{{task_data['ui_id_pairs'][loop.index-1][0]}}</b> and 
+                <b>{{task_data['ui_id_pairs'][loop.index - 1][1]}}</b>:<br>
+                {% for val in task_data['choices'][task_data['lst_q_type'][loop.index - 1]] %}
+                    <label>
+                      <input name="{{label}}" type="radio" value="{{val[0]}}"/>
+                      <span>{{val[1]}}</span>
+                    </label>
+                {% endfor %}
+                </div>
+            {% endfor %}
+            </ul>
+          </form>
+        </div>
+      </div>
+  
+  <!--  Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='js/init.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

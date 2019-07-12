@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <title>🚩Doc2Dial || Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+
+<body class="blue-grey darken-3 white-text">
+    <div class="container">
+        {% if is_debug %}
+        <div class="row">
+            <h4 class="col s8 offset-s2">
+                Doc2Dial Administrative Login
+            </h4>
+        </div>
+        {% else %}
+        <!-- Adding manual page breaks to shift overall page !-->
+        <br><br><br>
+        <div class="row">
+            <h6 class="col s10 offset-s1">
+                Please fill the form below and click <span style="color: teal">"<b>START</b>"</span> to continue with the task.<br>
+                Have fun contributing. Thank you!
+            </h6>
+        </div>
+        {% endif %}
+        <!-- Adding manual page breaks to shift overall page !-->
+        <br><br>
+        <div class="row valign-wrapper">
+            <form class="col s12" method="POST">
+                {{ form.hidden_tag() }}
+                {% if is_debug %}
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <i class="material-icons prefix">account_circle</i>
+                        {{ form.username(class_="white-text", value="admin") }}
+                        <label for="username">Username</label>
+                        <div class='red-text'>{% for error in form.username.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <i class="material-icons prefix">vpn_key</i>
+                        {{ form.password(class_="white-text") }}
+                        <label for="password">Password</label>
+                        <div class='red-text'>{% for error in form.password.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <i class="material-icons prefix">description</i>
+                        {{form.document(class_="autocomplete white-text")}}
+                        <label for="document">Document</label>
+                        <div class='red-text'>{% for error in form.document.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        <i class="material-icons prefix">assignment</i>
+                        {{form.task_ids(class_="white-text")}}
+                        <label for="task_ids">Task Id</label>
+                        <div class='red-text'>{% for error in form.task_ids.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                        <span>Please select task to inspect:</span>
+                        <div>
+                            <label for="task">
+                                {% for subfield in form.task %}
+                                <tr>
+                                    <label>
+                                        <td>{{subfield()}}</td>
+                                        <td><span>{{subfield.label()}}</span></td>
+                                    </label>
+                                </tr>
+                                {% endfor %}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Adding manual page breaks for aesthetics !-->
+                <br><br>
+                <div class="row">
+                    <div class="col s8 offset-s2">
+                        {{ form.submit(class_="btn btn-primary") }}
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                        {{ form.workerid(class_="white-text") }}
+                        <label for="workerid"><b>What is your Figure-8 Contributor ID? </b><b class="yellow-text">Make sure that you provide your actual Figure-8 Contributor ID.</b></label>
+                        <div class='red-text'>{% for error in form.workerid.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                        {{ form.username(class_="white-text") }}
+                        <label for="username">What name would you like to use for the job?</label>
+                        <div class='red-text'>{% for error in form.username.errors %}{{ error }}{% endfor %}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                        <label>
+                            <input type="checkbox" class="filled-in" checked="checked" />
+                            <span>I agree not to distribute the content of this task. </span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Adding manual page breaks for aesthetics !-->
+                <br><br>
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        {{ form.submit(class_="btn btn-primary") }}
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{{url_for('static', filename='js/init.demo.js')}}" type="text/javascript"></script>
+
+</html>

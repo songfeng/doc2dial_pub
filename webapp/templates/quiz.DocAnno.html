@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> 🚩DIAL || quiz</title>
+  <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- <link href="{{url_for('static', filename='css/materialize.css')}}" rel="stylesheet"> -->
+  <!-- <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet"> -->
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+  <div class="section">
+    <div class="container">
+        <h3 class="bg-header teal-text center">Quiz</h3>
+      <!-- <div class="card-panel">
+        {{text_data['ps']}}
+        {{text_data['anno_text']}}
+      </div> -->
+
+      <div class="card-panel">
+          <p><strong>Title: Passwork Help </strong></p>
+          <p>In some cases, <span class="grey white-text">&nbsp;1&nbsp;</span><span class="orange lighten-4">if a user changes an WORKSYSTEM serial number or email</span>, they might temporarily lose access to their Box account. <span class="grey white-text">&nbsp;2&nbsp;</span><span class="red lighten-5">Refer to <a href="#">Login Errors</a> for potential solutions.</span></p>
+
+          <p><span class="grey white-text">&nbsp;3&nbsp;</span><span class="blue lighten-5">When you don't have access to the WORKSYSTEM network</span>, <span class="grey white-text">&nbsp;4&nbsp;</span><span class="teal lighten-5">you can reset your w3id password using this external URL</span>.</p>
+    
+          <p><span class="grey white-text">&nbsp;5&nbsp;</span><span class="orange lighten-5">You can also have the password sent to your mobile device or WORKSYSTEM email</span>. To have the password sent to your mobile device, <span class="grey white-text">&nbsp;6&nbsp;</span><span class="lime lighten-4">your mobile number must be in your BluePages profile</span>.</p>
+      
+          
+      </div>
+
+      <form method="POST">
+          <div>
+              <div>1. Do text[1] and text[3] describe "precondition" scenarios?</div>
+              <label for="q1">
+                {% for subfield in form.q1 %}
+                  <tr>
+                      <label><td>{{subfield()}}</td>
+                      <td><span>{{subfield.label()}}</span></td>
+                      </label>
+                  </tr>
+                {% endfor %}
+              </label>
+            </div>
+            <br>
+            <div>
+                <div>2. Does text[6] describe the precondition of text[5] as solution?
+                  </div>
+                <label for="q2">
+                  {% for subfield in form.q2 %}
+                    <tr>
+                        <label><td>{{subfield()}}</td>
+                        <td><span>{{subfield.label()}}</span></td>
+                        </label>
+                    </tr>
+                  {% endfor %}
+                </label>
+              </div>
+              <br>
+              <div>
+                  <div>3. Is there any precondition descriptions among text[3] and text[4]? </div>
+                  <label for="q3">
+                    {% for subfield in form.q3 %}
+                      <tr>
+                          <label><td>{{subfield()}}</td>
+                          <td><span>{{subfield.label()}}</span></td>
+                          </label>
+                      </tr>
+                    {% endfor %}
+                  </label>
+                </div>
+              <br>
+              {{ form.submit(class_="btn btn-primary") }}
+      </form>
+           
+    </div>
+  </div>
+
+ 
+  <!--  Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='js/init.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

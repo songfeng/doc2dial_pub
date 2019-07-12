@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title> 🚩Doc2Dial || DocAnno</title>
+  <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/materialize.css')}}" rel="stylesheet">
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <script type=text/javascript>
+    $(function() {
+      $('#save').bind('click', function() { 
+        // M.toast({html: 'Your input is saved.'});
+        var dct = {};
+        dct['suggest'] = $("input[name='suggest']:checked").val();
+        // for (let l of {{label_ids|tojson}}) {
+        //   label = '#label_' + l;
+        //   val = M.Chips.getInstance($(label)).chipsData;
+        //   if(val != '')
+        //     dct[l] = val;
+        // };
+        dct['specification'] = $('#specification').val();
+        dct['category'] = $('#category').val();
+        dct['next_task_idx'] = {{next_task_idx|tojson}};
+        savereq = $.getJSON('/anno', dct, 
+        function(data) {
+          $.ajax({
+              success: function(){
+                // $('#progressbar').hide();
+                // $("#sys_msg").html(data.sys_msg);
+                // window.location.href = "{{ url_for('app.label') }}";
+              }
+          });
+          window.location.href = "{{ url_for('app.label') }}";
+        });
+        return false;
+      });
+    });
+  </script>
+ 
+</head>
+<body>
+  <div class="section">
+    <div class="container">
+      <div class="bg-header teal darken-3">
+        <div class="white-text center">
+            <b>{{username}}</b> on {{progress}}. 
+            <button class="btn red-text white lighten-1" id="save" href="#" value=""><b>Save & Next</b></button>
+        </div>
+      
+      <ul class="collapsible white">
+          <li class='active'>
+              <div class="collapsible-header"><i class="material-icons">whatshot</i>Original Document</div>
+            <div class="collapsible-body">
+              {% for ele in task_data["doc_info"][:2] %}
+                {% if ele in task_data %}
+                <div><b>{{ele}}</b>: <span class="light">{{task_data[ele]}}</span></div>
+                {% endif %}
+              {% endfor %} 
+              <div><b>doc stats</b>:
+                {% for k, v in task_data['doc_stats'].items() %}
+                <span>{{k}}: {{v}}</span> /
+                {% endfor %}
+              </div>
+              <br>
+              <div>
+                  <b>Suggest for the task?</b>
+                  {% for subfield in form.suggest %}
+                        <label>
+                          {{subfield()}}
+                          <span>{{subfield.label()}}</span>
+                        </label>
+                  {% endfor %}
+                  <!-- <button id="save1" class="btn red ighten-1">save</button> -->
+              </div>
+                  
+                <div class="lime lighten-5">
+                    {{task_data['html_ori']|safe}}
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s4">
+                        <p class="blue-grey-text text-darken-3"><b>Select task difficulty</b></p>
+                        {{ form.specification()}}
+                    </div>
+                    <div class="input-field col s4">
+                        <p class="blue-grey-text text-darken-3"><b>Select document category</b></p>
+                        {{ form.category()}}
+                    </div>
+                  </div>
+            </div>
+          </li>
+          <li>
+              <div class="collapsible-header"><i class="material-icons">assignment</i>Processed Document</div>
+              <div class="collapsible-body">
+                <blockquote class='white'>
+                      <span class="chip orange-text">P</span><b class="orange-text">Precondition</b> 
+                      <span class="chip blue-text">S</span><b class="blue-text">Solution</b>
+                      <span class="chip green-text">B</span><b class="green-text">Both S and P</b>
+                      <span class="chip grey-text">O</span><b class="grey-text">Other</b>
+                  </blockquote>
+                <div class="lime lighten-5">{{task_data['task_html']|safe}} </div>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+ 
+  <!--  Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='js/init.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> 🚩DIAL || quiz</title>
+  <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- <link href="{{url_for('static', filename='css/materialize.css')}}" rel="stylesheet"> -->
+  <!-- <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet"> -->
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+  <div class="section">
+    <div class="container">
+        <h3 class="bg-header teal-text center">Please review the labeled text below</h3>
+
+        <div class="card-panel" id="result">
+            <p><strong>Title: Passwork Help </strong></p>
+            <p>In some cases, <span class="grey white-text">&nbsp;1&nbsp;</span> <u class="orange-text">if a user changes an WORKSYSTEM serial number or email</u><span class="chip orange-text">P</span>, they might temporarily lose access to their Box account. <span class="grey white-text">&nbsp;2&nbsp;</span><u class="blue-text">Refer to <a>Login Errors</a> for potential solutions</u><span class="chip blue-text">S</span>. <span class="grey white-text">&nbsp;3&nbsp;</span> <u class="green-text">You can reset your password using this external URL when you don't have access to the WORKSYSTEM network.</u><span class="chip green-text">B</span></p>
+  
+            <p>This error message appears in two scenarios:</p>
+            <ul class="browser-default">
+              <li><span class="grey white-text">&nbsp;4&nbsp;</span><u class="orange-text">You don't have an account provisioned with Box@WORKSYSTEM.</u><span class="chip orange-text">P</span></p> <span class="grey white-text">&nbsp;5&nbsp;</span><u class="blue-text">You must create a Box@WORKSYSTEM account from a computer before gaining access to Box@WORKSYSTEM resources on your mobile device</u><span class="chip blue-text">S</span>. For account setup instructions, refer to <a>Use Box@WORKSYSTEM: Register for an Account</a>.</li>
+              <li><span class="grey white-text">&nbsp;6&nbsp;</span><u class="orange-text">You have incorrectly managed-app configurations loaded on your device</u><span class="chip orange-text">P</span></p>.</li>
+            </ul>
+        </div>
+
+        <div class='center-align'><a class="btn red white-text pulse" href="{{ url_for('app.label') }}">Enter the task now</a></div>
+
+     
+           
+    </div>
+  </div>
+
+ 
+  <!--  Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='js/init.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title> 🚩Doc2Dial || TextAnno </title>
+  <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/app.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/materialize.css')}}" rel="stylesheet">
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+  
+  <script type=text/javascript>
+    $(function() {
+      $('#save').bind('click', function() { 
+        $('#progressbar').show();
+        $("#sys_msg").empty();
+        var dct = {};
+        for (let l of {{label_ids|tojson}}) {
+          label = '#label_' + l;
+          val = M.Chips.getInstance($(label)).chipsData;
+          if(val != '')
+            dct[l] = val;
+        };
+        if ({{label_ids|tojson}}.length != Object.keys(dct).length && !{{is_debug|tojson}}){
+          alert("Please complete all the labels. Thank you!");
+        }
+        else{
+          M.toast({html: 'Your input is saved. Thank you.'});
+          dct['next_task_idx'] = {{next_task_idx|tojson}};
+          savereq = $.getJSON('/anno', dct,
+          function(data) {
+            $.ajax({
+                success: function(){
+                  // $("#sys_msg").html(data.sys_msg);
+                  window.location.href = "{{ url_for('app.label') }}";
+                }
+            });
+          });
+        }
+        return false;
+      });
+    });
+  </script>
+ 
+</head>
+<body>
+  <div></div>
+  <div class="section">
+    <div class="container">
+      <div class="bg-header brown darken-4">
+        <div class='white-text center'>
+          <b>{{username}}</b> on {{progress}}.
+          <span> <button class="btn white red-text lighten-1" id="save" href="#" value=""><b>Save & Next</b></button></span>
+        </div>
+      <div>
+      <blockquote class='white card'>
+        <p class='half-line'>&nbsp;</p>
+          <span class="chip orange-text">P</span><b class="orange-text">Precondition</b> 
+          <span class="chip blue-text">S</span><b class="blue-text">Solution</b>
+          <span class="chip green-text">B</span><b class="green-text">Both S and P</b>
+          <span class="chip grey-text">O</span><b class="grey-text">Other</b>
+          <p class='half-line'>&nbsp;</p>
+          <!-- (Click <a href="/example" target="_blank">HERE</a> to see more example) -->
+      </blockquote>
+      <br>
+      <br>
+      <div class="switch">
+        <label>
+          Gold-Off
+          <input type="checkbox">
+          <span class="lever"></span>
+          Gold-On
+        </label>
+      </div>
+    
+      <div class="card-panel">
+          <br>
+        {% for ele in task_data["doc_info"][:1] %}
+          {% if ele in task_data %}
+          <div class="black-text"><b>{{ele}}</b>: <span class="light">{{task_data[ele]}}</span></div>
+          {% endif %}
+        {% endfor %}
+        <br>
+        <!-- {% if is_debug %}
+        <p>doc_id: {{task_data['doc_id']}}</p>
+        <p>task_id: {{task_data['task_id']}}</p>
+        <p>url: {{task_data['url']}}</p>
+        <p>label: {{task_data['label']}}</p>
+        <p>title: {{task_data['title']}}</p>
+        {% endif %} -->
+        {{task_data['task_html']|safe}}
+      </div>
+      <p class='half-line'>&nbsp;</p>
+      <p class='half-line'>&nbsp;</p>
+      <p class='half-line'>&nbsp;</p>
+    </div>
+  </div>
+
+ 
+  <!--  Scripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='js/init.js')}}" type="text/javascript"></script>
+
+  </body>
+</html>

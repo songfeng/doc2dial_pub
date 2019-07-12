@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <title>f8-Task-Label-Sentence</title>
+
+  </head>
+  <link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+      <body>
+        <div class="container">
+          <h4>1 Task Overview</h4>
+          <div id="task">
+            You will be provided with a text document on how to solve a customer problem. You task is to identify text segments or sentences that describe 
+            <b class="orange-text">precondition</b> and 
+            <b class="blue-text">solution</b> with the following labels,
+
+            <ol>
+              <li>
+                <span class="chip blue-text">S</span>
+                <b class="blue-text">Solution</b> corresponds to suggestion(s) on how to solve the customer issue (marked blue in the example).
+              </li>
+              <li>
+                <span class="chip orange-text">P</span>
+                <b class="orange-text">Precondition</b> corresponds to the description of what is required as a prior condition to apply a certain solution (marked orange), e.g., the senarios if the customer belongs to a certain group or has taken a certain action, or the problem shows a certain symptom.
+              </li>
+              <li>
+                <span class="chip green-text">S+P</span>
+                <b class="green-text">Both</b> corresponds to the description with both precondition and solution.
+              </li>
+              <li>
+                <span class="chip grey-text">O</span>
+                <b class="grey-text">Other</b> when none of above applies.
+              </li>
+            </ol>
+               
+            <div id="example" class="card-panel" style="font-family:Palatino">
+              <b>
+                <u>EXAMPLE</u>
+              </b>
+              <br>
+                <div class="light">
+                  <u>
+                    <span class="grey-text">We offer many ways to get support and service.</span>
+                  </u> &nbsp;
+                  <span class="chip grey-text">O</span>
+                  <u>
+                    <span class="orange-text">If your Mac drops or its screen has a crack ,</span>
+                  </u> &nbsp;
+                  <span class="chip orange-text">P</span>
+                  <u>
+                    <span class="blue-text">ACE covers these damages</span>.
+                  </u>&nbsp;
+                  <span class="chip blue-text">S</span>
+                  <u>
+                    <span class="orange-text">For liquid damage or severe damage ,</span>
+                  </u> &nbsp;
+                  <span class="chip orange-text">P</span>
+                  <u>
+                    <span class="blue-text">you need to request an emergency replacement via the online portal.</span>
+                  </u>&nbsp;
+                  <span class="chip blue-text">S</span>
+                  <u>
+                    <span class="green-text">There's no charge if the issue is covered under warranty.</span>
+                  </u>&nbsp;
+                  <span class="chip green-text">S+P</span>&nbsp;
+                </div>
+              </div>
+            </div>
+
+            <!-- <h4></h4> -->
+            <!-- Sometimes a precondition and a solution may not happen in order or immediate proximity. In rare cases, some documents may only mention solutions without preconditions, or vice versa. -->
+
+            <h4>2 Steps</h4>
+            <div class="section">
+              <h6>2.1 Training quiz</h6>
+              <div>
+                    If this is your first time working on this job, there will be a training quiz as shown below to prepare you for the labeling task. Please read each example carefully.
+            </div>
+
+              <img src="https://s3.amazonaws.com/crowdflower-make-cloud/images%2F1556103568537-Screen+Shot+2019-04-24+at+6.58.14+AM.png" style="width: 600px;">
+              </div>
+              <h6>2.2 Main Task</h6>
+              <div>
+        Once you pass the quiz, you will enter the main task as shown below. For each underlined text, please label it using the autocomplete dropdown list.
+              </div>
+              <div id="ui">
+
+                <img src="https://s3.amazonaws.com/crowdflower-make-cloud/images%2F1557279421359-UI_ls.png" style="width: 600px;">
+                </div>
+
+                <h4>3 Start your job</h4>
+                You are about to label {{total}} text snippets with an estimated bonus of {{payment}}. Click
+                  <a target="_blank" class="btn red-text lighten-1" href="{{task_url}}">HERE
+                  </a> to get started!
+                
+         <b class="red-text">After you finish the task, you will get a confirmaton code, please copy it here.</b>
+                  <cml:text label="Text" data-validates-regex="{{confirmation_code}}" validates="required ss-required regex" data-validates-regex-message="Please copy and paste the code here that can be found at the end of the task" default="Enter here..." instructions="Enter Confirmation Code in this field after completing" />
+
+              </div>
+
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            </body>
+          </html>
