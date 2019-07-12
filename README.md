@@ -4,6 +4,8 @@ Doc2Dial
 Document-Grounded Dialog Composition Framework is an end-to-end
 framework for generating conversational data grounded in the documents via crowdsourcing.
 
+NOTE: more code release in Auguest 2019.
+
 ## Prerequisites
 
 * MongoDB: On MacOS, `brew install mongodb-community@4.0`. Please refer to [MongoDB community edition installation instructions](https://docs.mongodb.com/manual/administration/install-community/) for other platforms.
